@@ -1,0 +1,23 @@
+---
+- name: ios_facts
+  hosts: router
+  gather_facts: false
+
+  tasks:
+    - name: Collect IOS Version Information
+      ios_command:
+        commands:
+          - show version
+      register: ios_version
+
+    - name: Display IOS Version
+      debug:
+        var: ios_version.stdout_lines
+
+    - name: Collect L3 Interface Information
+      ios_command:
+        commands:
+          - show ip interface brief
+      register: l3_interfaces
+
+    
